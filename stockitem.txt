@@ -1,0 +1,5 @@
+Product : watch Quatity: 1 Price : 50000 Status :stock
+Product : mouse Quatity: 1 Price : 90000 Status :return
+Product : book Quatity: 1 Price : 906606 Status :stock
+Product : belt Quatity: 1 Price : 906606 Status :stock
+Product : samsung Quatity: 1 Price : 50000 Status :stock
