@@ -63,15 +63,20 @@ while (newenum.hasMoreElements()) {
     Vector<products> classvector = new Vector<>();
 
     classvector.add(new products("bottle", 25, "Mirinda"));
+    classvector.add(new products("charger", 2500, "Samsung"));
 
 
-    Enumeration classenum = classvector.elements();
+    Enumeration<products> classenum = classvector.elements();
 
 
     while (classenum.hasMoreElements()) {
-        System.out.println(classenum.nextElement());
+        // System.out.println(classenum.nextElement());
     // String a =  classenum.nextElement().toString();
     // System.out.println(a);
+
+    products nextproduct = classenum.nextElement();
+
+    System.out.println(nextproduct.name);
         
     }
     }
