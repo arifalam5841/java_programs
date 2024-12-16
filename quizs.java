@@ -115,14 +115,14 @@ public class quizs {
         quiz.addquestions(new Question(
             "Which programming language is platform-independent?",
             new String[]{"C++", "Python", "Java", "JavaScript"},
-            1,
+            2,
             Difficulty.MEDIUM
         ));
 
         quiz.addquestions(new Question(
             "What is the time complexity of binary search?",
             new String[]{"O(n)", "O(log n)", "O(n^2)", "O(1)"},
-            1,
+            3,
             Difficulty.HARD
         ));
 
