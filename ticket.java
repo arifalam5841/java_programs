@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.lang.reflect.Array;
 import java.nio.channels.ScatteringByteChannel;
 import java.time.DayOfWeek;
@@ -42,6 +44,10 @@ class moviesobj {
         return false;
     }
 
+     public String[] displaycast(){
+            
+        return cast;
+    }
     
     public int displayTicket(){
 
@@ -49,6 +55,84 @@ class moviesobj {
     }
 }
 
+
+class appendingdata{
+    public void appendingcustomer(ticket ticketclass){
+        try {
+            // Open the file with try-with-resources to ensure it gets closed
+            FileWriter file = new FileWriter("customerdata.txt");
+            try (BufferedWriter writer = new BufferedWriter(file)) {
+                // Iterate over the customer array and write to the file
+                for (addingcustomer eachCustomer : ticketclass.customerarray) {
+
+                    String eachlinne = "Name : " + eachCustomer.name  +  " , " + "Bank name : " + eachCustomer.bankname + " , " + "Wallet : " + eachCustomer.walletmoney ;
+                    writer.write(eachlinne); // Assuming toString() provides a meaningful representation
+                    writer.newLine(); // Add a new line after each customer
+
+                    writer.write("All Last Movies : ");
+                    writer.newLine(); 
+                    for(lastmovieclass eachlast : eachCustomer.lastmoviearraydisplay()){
+                        String lastmoviedata = "Name: " + eachlast.name + " | " + "Amount: " + eachlast.amount + " | " + "Date: " + eachlast.date ;
+                        writer.write(lastmoviedata);
+                        writer.newLine();
+                    }
+                    // writer.write(eachCustomer.displayName()); // Assuming toString() provides a meaningful representation
+                    writer.newLine();
+                    writer.write("");
+                }
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            e.printStackTrace();
+
+            
+        }
+
+    } 
+
+    public void appendmovie(movieProcess moviesarray){
+
+
+
+        try {
+            // Open the file with try-with-resources to ensure it gets closed
+            FileWriter file = new FileWriter("moviesdata.txt");
+            try (BufferedWriter writer = new BufferedWriter(file)) {
+                // Iterate over the customer array and write to the file
+              
+        for(moviesobj eachmovie : moviesarray.movies){
+            
+            // String[] allcast = eachmovie.cast;
+
+            // for(String[] eachcast : eachmovie.cast.toString()){
+
+            // }
+
+            String allcast = "";
+
+            for( int i = 0; i < eachmovie.cast.length ; i++){
+
+
+                allcast +=    eachmovie.cast[i].toString() + " , ";
+            }
+
+            String eachdata = "Name: " +  eachmovie.name + " , " + "Cast: " + "[ " + allcast + " ]"  +" , " + "Director: " + eachmovie.director + " , " + "Gener: " + eachmovie.moviegener + " , " + "Available ticket: " + eachmovie.availticket + " ," + "Ticket Price: " + eachmovie.ticketprice;
+
+
+            writer.write(eachdata);
+            writer.newLine();
+            
+        }
+            }
+        } catch (Exception e) {
+            // Handle the exception
+            e.printStackTrace();
+
+            
+        }
+
+    }
+}
 class movieProcess {
     ArrayList<moviesobj> movies;
 
@@ -76,6 +160,8 @@ class movieProcess {
 
         // updating the movies file
     }
+
+   
 
     public void AllMovies() {
         for (moviesobj movie : movies) {
@@ -189,6 +275,9 @@ class lastmovieclass{
 
 }
 
+
+ 
+
 class addingcustomer{
     String name;
     String bankname;
@@ -207,7 +296,7 @@ class addingcustomer{
      }
 
      public String displayName(){
-return name;
+      return name;
      }
 
      public String displayBankname(){
@@ -223,6 +312,11 @@ return name;
         for(lastmovieclass eachlastmovie : lastMoviesarray){
             System.out.println("Name: " + eachlastmovie.name + " | "+ "Date: " + eachlastmovie.date + " | "+ "Amount: " + eachlastmovie.amount);
         }
+     }
+
+     public ArrayList<lastmovieclass> lastmoviearraydisplay(){
+
+        return lastMoviesarray;
      }
 
      public void walletmoneydiduction(int amountgave){
@@ -257,12 +351,12 @@ public class ticket {
         eachcustomer.diplayLastmovie();
 
 
-System.out.println("------------------------------------------------------------------------------------------------");
+         System.out.println("------------------------------------------------------------------------------------------------");
 
         }
     }
 
-    public static void addingcustomerarray(Scanner sc){
+    public static void addingcustomerarray(Scanner sc, ticket tickclass){
 
         System.out.println("Add Customer----------------------");
         System.out.println("Enter name:");
@@ -275,12 +369,24 @@ System.out.println("------------------------------------------------------------
 
         customerarray.add(new addingcustomer(name, bankName, walletMoney));
 
+
+
         System.out.println("Customer added succesfully!!");
         
+
+        // new appendingdata.appendingcustomer(ticket);
+
+        appendingdata objappen = new appendingdata();
+
+        objappen.appendingcustomer(tickclass);
         
     }
     public static void addmovie(Scanner sc, movieProcess movieProcess) {
         movieProcess.addingMovie(sc);
+
+        appendingdata objappen = new appendingdata();
+
+        objappen.appendmovie(movieProcess);
     }
 
     public static void displayallmovie(movieProcess movieProcess) {
@@ -293,12 +399,20 @@ System.out.println("------------------------------------------------------------
 
     public static void buyticket(Scanner sc, movieProcess movieProcess, ticket objticket) {
         new customer().bookTicket(sc, movieProcess, objticket);
+
+        appendingdata objappen = new appendingdata();
+
+        objappen.appendingcustomer(objticket);
+        objappen.appendmovie(movieProcess);
     }
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         movieProcess movieProcess = new movieProcess();
+        // movieProcess movieProcess = new movieProcess();
         ticket objticket = new ticket();
+
+
 
         while (true) {
             System.out.println("1. Add Movie");
@@ -317,7 +431,7 @@ System.out.println("------------------------------------------------------------
                 case 2 -> displayallmovie(movieProcess);
                 case 3 -> checkmovie(sc, movieProcess);
                 case 4 -> buyticket(sc, movieProcess,objticket);
-                case 5 -> addingcustomerarray(sc);
+                case 5 -> addingcustomerarray(sc, objticket);
                 case 6 -> displayallcustomer();
                 case 7-> {
                     System.out.println("Exiting... Thank you!");
