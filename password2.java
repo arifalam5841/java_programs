@@ -1,4 +1,4 @@
-class main_func {
+ class main_func {
     String Value;
     int Length;
 

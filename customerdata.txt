@@ -1,5 +1,9 @@
-Name : arif , Bank name : sate bank of india , Wallet : 355
+Name : arif , Bank name : sbi , Wallet : 4600
 All Last Movies : 
 Name: null | Amount: 0 | Date: null
-Name: rrr | Amount: 100 | Date: 2024-12-20
+Name: jawan | Amount: 400 | Date: 2024-12-24
+
+Name : ayab , Bank name : ssd , Wallet : 8000
+All Last Movies : 
+Name: null | Amount: 0 | Date: null
 

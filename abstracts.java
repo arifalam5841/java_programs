@@ -22,7 +22,7 @@ class dog extends parent{
 
    public dog(String name,String secondname){         
     super(name, secondname); // Pass empty string as second parameter to match parent constructor
-   }
+   } 
 }
 
 class cat extends parent {
